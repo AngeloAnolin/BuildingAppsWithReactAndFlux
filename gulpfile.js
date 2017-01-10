@@ -19,7 +19,8 @@ var config = {
       'node_modules/bootstrap/dist/css/bootstrap.min.css',
       'node_modules/bootstrap/dist/css/bootstrap-theme.min.css',
       'node_modules/toastr/toastr.css',
-      'node_modules/fixed-data-table/dist/fixed-data-table.min.css'
+      'node_modules/fixed-data-table/dist/fixed-data-table.min.css',
+      'node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css'
     ],
     dist: './dist',
     mainJs: './src/main.js'

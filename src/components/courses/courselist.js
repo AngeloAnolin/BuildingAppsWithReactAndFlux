@@ -7,6 +7,10 @@ var Toastr = require('toastr');
 var CourseActions = require('../../actions/courseactions');
 var Confirm = require('react-confirm-bootstrap');
 
+var ReactBsTable = require("react-bootstrap-table");
+var BootstrapTable = ReactBsTable.BootstrapTable;
+var TableHeaderColumn = ReactBsTable.TableHeaderColumn;
+
 var CourseList = React.createClass({
   propTypes: {
     courses: React.PropTypes.array.isRequired
@@ -27,6 +31,19 @@ var CourseList = React.createClass({
   },
 
   render: function(){
+    var urlFormatter = function(cell, row){
+      return(
+        <a href={ cell } target="_blank">Link</a>
+      );
+    };
+
+    var linkFormatter = function(cell, row){
+      console.log(row);
+      return(
+        <Link to={"course/" + cell}>{ cell }</Link>
+      );
+    };
+
     var createCourseRow = function(course){
       return (
         <tr key={course.id}>
@@ -83,6 +100,13 @@ var CourseList = React.createClass({
             {this.props.courses.map(createCourseRow, this)}
           </tbody>
         </table>
+
+        <BootstrapTable data={this.props.courses} striped hover>
+          <TableHeaderColumn></TableHeaderColumn>
+          <TableHeaderColumn isKey={ true } dataField='id' dataFormat={ linkFormatter }>ID</TableHeaderColumn>
+          <TableHeaderColumn dataField='title'>Title</TableHeaderColumn>
+          <TableHeaderColumn dataField='watchHref' dataFormat={ urlFormatter }>URL</TableHeaderColumn>
+        </BootstrapTable>
       </div>
     );
   }
