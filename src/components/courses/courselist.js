@@ -23,27 +23,34 @@ var CourseList = React.createClass({
 
   deleteCourse: function(title, id, event){
     event.preventDefault();
-    // if(confirm('Delete the course ' + title + '?')){
-    //   CourseActions.deleteCourse(id);
-    //   Toastr.success("Course Deleted");
-    // }
-    //<a ref="#" onClick={this.deleteCourse.bind(this, course.title, course.id)} className="btn btn-danger">Delete</a>
+  },
+
+  confirmDeleteFormatter: function(cell, row){
+    return(
+        <Confirm
+          onConfirm={ this.onConfirm.bind(this, row.title, row.id) }
+          body="Confirm Delete of this Course"
+          confirmText="Delete"
+          title={ row.title }
+          >
+          <a ref="#" className="btn btn-danger">Delete</a>
+        </Confirm>
+      );
+  },
+
+  urlFormatter: function(cell, row){
+    return(
+      <a href={ cell } target="_blank">Link</a>
+    );
+  },
+
+  linkFormatter: function(cell, row){
+    return(
+      <Link to={"course/" + cell}>{ cell }</Link>
+    );
   },
 
   render: function(){
-    var urlFormatter = function(cell, row){
-      return(
-        <a href={ cell } target="_blank">Link</a>
-      );
-    };
-
-    var linkFormatter = function(cell, row){
-      console.log(row);
-      return(
-        <Link to={"course/" + cell}>{ cell }</Link>
-      );
-    };
-
     var createCourseRow = function(course){
       return (
         <tr key={course.id}>
@@ -102,10 +109,10 @@ var CourseList = React.createClass({
         </table>
 
         <BootstrapTable data={this.props.courses} striped hover>
-          <TableHeaderColumn></TableHeaderColumn>
-          <TableHeaderColumn isKey={ true } dataField='id' dataFormat={ linkFormatter }>ID</TableHeaderColumn>
-          <TableHeaderColumn dataField='title'>Title</TableHeaderColumn>
-          <TableHeaderColumn dataField='watchHref' dataFormat={ urlFormatter }>URL</TableHeaderColumn>
+          <TableHeaderColumn dataFormat={ this.confirmDeleteFormatter } width="100"></TableHeaderColumn>
+          <TableHeaderColumn isKey={ true } dataField='id' dataFormat={ this.linkFormatter } dataSort={ true }>ID</TableHeaderColumn>
+          <TableHeaderColumn dataField='title' dataSort={ true }>Title</TableHeaderColumn>
+          <TableHeaderColumn dataField='watchHref' dataFormat={ this.urlFormatter } dataSort={ true }>URL</TableHeaderColumn>
         </BootstrapTable>
       </div>
     );
