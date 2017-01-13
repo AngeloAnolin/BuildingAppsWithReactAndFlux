@@ -20,9 +20,6 @@ var ManageAuthorPage = require('./components/authors/manageauthorpage');
 var Courses = require('./components/courses/coursepage')
 var ManageCoursePage = require('./components/courses/managecoursepage');
 
-// DataTable Component
-var FixedDataTable = require('./components/fixeddatatable');
-
 var AboutPage = require('./components/about/aboutpage');
 var NotFoundPage = require('./components/notfoundpage');
 
@@ -43,8 +40,6 @@ var routes = (
       <Route path="courses" component={ Courses } />
       <Route path="course" component={ ManageCoursePage } />
       <Route path="course/:id" component={ ManageCoursePage } />
-
-      <Route path="fixeddatatable" component={ FixedDataTable } />
 
       <Route path="about" component={ AboutPage } onEnter={ enterAboutPage } />
       <Route path="*" component={NotFoundPage} />

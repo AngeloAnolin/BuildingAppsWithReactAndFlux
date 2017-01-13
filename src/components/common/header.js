@@ -21,7 +21,6 @@ var Header = React.createClass({
             <li className={this.isSelected('')}><Link to="/">Home</Link></li>
             <li className={this.isSelected('authors')}><Link to="/authors">Authors</Link></li>
             <li className={this.isSelected('courses')}><Link to="/courses">Courses</Link></li>
-            <li className={this.isSelected('fixeddatatable')}><Link to="/fixeddatatable">DataTable</Link></li>
             <li className={this.isSelected('about')}><Link to="/about">About</Link></li>
           </ul>
         </div>

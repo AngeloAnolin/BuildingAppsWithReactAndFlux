@@ -38,6 +38,12 @@ var CourseList = React.createClass({
       );
   },
 
+  authorNameFormatter: function(cell, row){
+    return(
+      <p>{ cell.name }</p>
+    );
+  },
+
   urlFormatter: function(cell, row){
     return(
       <a href={ cell } target="_blank">Link</a>
@@ -51,68 +57,16 @@ var CourseList = React.createClass({
   },
 
   render: function(){
-    var createCourseRow = function(course){
-      return (
-        <tr key={course.id}>
-          <td>
-            <Confirm
-              onConfirm={this.onConfirm.bind(this, course.title, course.id)}
-              body="Confirm Delete of this Course"
-              confirmText="Delete"
-              title={course.title}
-              >
-              <a ref="#" className="btn btn-danger">Delete</a>
-            </Confirm>
-            
-          </td>
-          <td>
-            <Link to={"course/" + course.id}>{ course.id }</Link>
-          </td>
-          <td>
-            { course.title }
-          </td>
-          <td>{ course.author.name }</td>
-          <td>
-            <a href={ course.watchHref } target="_blank">Link</a>
-          </td>
-          <td className="text-center">
-            { course.length }
-          </td>
-          <td className="text-center">
-            { course.category }
-          </td>
-        </tr>
-      );
-    };
-
     return (
-      <div>
-        <table className="table table-hover table-striped">
-          <thead>
-            <tr>
-              <th></th>
-              <th>
-                ID
-              </th>
-              <th>
-                Course Title
-              </th>
-              <th>Author</th>
-              <th>URL</th>
-              <th>Length</th>
-              <th className="text-center">Category</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.props.courses.map(createCourseRow, this)}
-          </tbody>
-        </table>
-
+      <div className="row">
         <BootstrapTable data={this.props.courses} striped hover>
           <TableHeaderColumn dataFormat={ this.confirmDeleteFormatter } width="100"></TableHeaderColumn>
           <TableHeaderColumn isKey={ true } dataField='id' dataFormat={ this.linkFormatter } dataSort={ true }>ID</TableHeaderColumn>
           <TableHeaderColumn dataField='title' dataSort={ true }>Title</TableHeaderColumn>
+          <TableHeaderColumn dataField='author' dataFormat={ this.authorNameFormatter } dataSort={ true }>Author</TableHeaderColumn>
           <TableHeaderColumn dataField='watchHref' dataFormat={ this.urlFormatter } dataSort={ true }>URL</TableHeaderColumn>
+          <TableHeaderColumn dataField='length' dataSort={ true }>Length</TableHeaderColumn>
+          <TableHeaderColumn dataField='category' dataSort={ true }>Category</TableHeaderColumn>
         </BootstrapTable>
       </div>
     );
